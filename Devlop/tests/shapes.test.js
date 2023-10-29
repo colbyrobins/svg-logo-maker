@@ -1,0 +1,1 @@
+const {Square, Circle, Triange } = require('../lib/shapes.js')

@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const { join } = require('path');
 const { writeFile } = require('fs/promises');
+const { Circle, Square, Triangle} = require('./shapes.js');
 
 class CLI {
   run() {
@@ -21,7 +22,7 @@ class CLI {
             name: 'shape',
             message: 'Please enter a shape',
             choices: [
-                'cirlce',
+                'circle',
                 'triangle',
                 'square'
             ]
@@ -32,7 +33,19 @@ class CLI {
             message: 'Please your shape color'
         }
       ])
-      .then(() => {
+      .then((responses) => {
+        let shape;
+
+        if (responses.shape === 'circle') {
+          shape = new Circle(responses.text, responses.shapeColor, responses.textColor);
+
+        }else if (responses.shape === 'square') {
+          shape = new Square(responses.text, responses.shapeColor, responses.textColor);
+
+        }else if (responses.shape === 'triangle') {
+          shape = new Triangle(responses.text, responses.shapeColor, responses.textColor);
+        }
+        return writeFile('logo.svg', shape.render());
       })
       .then(() => console.log('Generated logo.svg'))
       .catch((err) => {
