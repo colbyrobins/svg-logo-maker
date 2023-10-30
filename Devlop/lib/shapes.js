@@ -1,59 +1,66 @@
 
 
 class Shape {
-    constructor(text, shapeColor, textColor) {
+    constructor(text, textColor, shapeColor) {
         this.text = text;
         this.shapeColor = shapeColor;
         this.textColor = textColor;
     }
+
+    generateTextHtml(x, y, fontSize, text, textColor) {
+        return `<text x="${x}" y="${y}" font-size="${fontSize}" fill="${textColor}" text-anchor="middle" alignment-baseline="middle">${text}</text>`
+    }
 }
 
 class Circle extends Shape {
-    constructor(text, shapeColor, textColor) {
-        super(text, shapeColor, textColor)
+    constructor(text, textColor, shapeColor) {
+        super(text, textColor, shapeColor)
     }
 
     render() {
+        const textHtml =  this.generateTextHtml(150, 125, 60, this.text, this.textColor)
         return `
             <svg version="1.1"
                 width="300" height="200"
                 xmlns="http://www.w3.org/2000/svg">
                 <rect width="100%" height="100%" fill="white" />
                 <circle cx="150" cy="100" r="80" fill="${this.shapeColor}" />
-                <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.textColor}">${this.text}</text>
+                ${textHtml}
             </svg>`;
     }
 }
 
 class Square extends Shape {
-    constructor(text, shapeColor, textColor) {
-        super(text, shapeColor, textColor)
+    constructor(text, textColor, shapeColor) {
+        super(text, textColor, shapeColor)
     }
 
     render() {
+        const textHtml = this.generateTextHtml(150, 150, 14, this.text, this.textColor);
         return `
             <svg version="1.1"
-                width="200" height="200"
+                width="300" height="200"
                 xmlns="http://www.w3.org/2000/svg">
-                <rect x="100" y="100" width="100" height="100" fill="${this.squareColor}" />
-                <text x="150" y="150" font-size="14" fill="${this.textColor}" text-anchor="middle" alignment-baseline="middle">${this.text}</text>
+                <rect x="100" y="100" width="100" height="100" fill="${this.shapeColor}" />
+                ${textHtml}
             </svg>`;
     }
 }
 
 class Triangle extends Shape {
-    constructor(text, shapeColor, textColor) {
-        super(text, shapeColor, textColor)
+    constructor(text, textColor, shapeColor) {
+        super(text, textColor, shapeColor)
     }
 
     render() {
+        const textHtml = this.generateTextHtml(250, 175, 14, this.text, this.textColor);
         return `
-        <svg version="1.1"
-            width="500" height="500" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="250,60 100,400 400,400" fill="${this.shapeColor}" />
-            <text x="250" y="300" font-size="30" fill="${this.textColor}" text-anchor="middle" alignment-baseline="middle"> ${this.text}</text>
-        </svg>`;
+            <svg version="1.1"
+                width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="250, 100 100,400 400,400" fill="${this.shapeColor}" />
+                ${textHtml}
+            </svg>`;
     }   
 }
 
-module.exports = { Square, Circle, Triangle }
+module.exports = { Square, Circle, Triangle, Shape}
